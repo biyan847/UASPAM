@@ -18,9 +18,39 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.uaspam.Model.Makanan
+
+@Composable
+fun BodyHome(
+    itemMakanan: List<Makanan>,
+    modifier: Modifier = Modifier,
+    onOrderClick: (String) -> Unit = {},
+    onViewClick: (String) -> Unit = {}
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+        if (itemMakanan.isEmpty()) {
+            Text(
+                text = "Tidak ada data Makanan",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge
+            )
+        } else {
+            ListMakanan(
+                itemMakanan= itemMakanan,
+                modifier = Modifier,
+                onItemClick = {onViewClick(it.id)},
+                onOrderClick = {onOrderClick(it.id)}
+            )
+        }
+    }
+}
 
 @Composable
 fun ListMakanan(
